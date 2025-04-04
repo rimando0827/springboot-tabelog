@@ -1,5 +1,7 @@
 package com.example.springboot_tabelog.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,5 +21,6 @@ public interface ShopRepository extends JpaRepository<Shop, Integer> {
 	public Page<Shop> findAllByOrderByCreatedAtDesc(Pageable pageable);
 	public Page<Shop> findAllByOrderByPriceLowerLimitAsc(Pageable pageable);    
 	
+	public List<Shop> findTop10ByOrderByCreatedAtDesc();
 
 }
