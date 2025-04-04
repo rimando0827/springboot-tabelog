@@ -16,7 +16,7 @@ public class ShopEditForm {
 	
 	  private Category category; 
 	  
-	  @NotBlank(message = "民宿名を入力してください。")
+	  @NotBlank(message = "店舗名を入力してください。")
 	    private String name;
 	        
 	    private MultipartFile imageFile;

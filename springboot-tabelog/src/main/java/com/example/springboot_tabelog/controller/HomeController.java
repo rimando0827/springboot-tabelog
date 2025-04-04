@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.example.springboot_tabelog.entity.Shop;
 import com.example.springboot_tabelog.repository.CategoryRepository;
@@ -33,13 +32,6 @@ public class HomeController {
 		return "index";
 	}
 	
-	 @GetMapping("/{id}")
-	    public String show(@PathVariable(name = "id") Integer id, Model model) {
-	        Shop shop = shopRepository.getReferenceById(id);
-	        
-	        model.addAttribute("shop", shop);         
-	        
-	        return "houses/show";
-	    }    
+	 
 
 }
