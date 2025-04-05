@@ -1,5 +1,7 @@
 package com.example.springboot_tabelog.controller;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -11,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.springboot_tabelog.entity.Review;
 import com.example.springboot_tabelog.entity.Shop;
 import com.example.springboot_tabelog.repository.CategoryRepository;
+import com.example.springboot_tabelog.repository.ReviewRepository;
 import com.example.springboot_tabelog.repository.ShopRepository;
 
 @Controller
@@ -21,10 +25,13 @@ public class ShopController {
 	
 	private final ShopRepository shopRepository;     
 	private final CategoryRepository categoryRepository;
+	private final ReviewRepository reviewRepository;
 	
-	public ShopController(ShopRepository shopRepository , CategoryRepository categoryRepository) {
+	public ShopController(ShopRepository shopRepository , CategoryRepository categoryRepository, ReviewRepository reviewRepository) {
         this.shopRepository = shopRepository;     
         this.categoryRepository = categoryRepository;
+        this.reviewRepository= reviewRepository;
+        
 }
 	
 	  @GetMapping
@@ -80,6 +87,12 @@ public class ShopController {
 	    public String show(@PathVariable(name = "id") Integer id, Model model) {
 	        Shop shop = shopRepository.getReferenceById(id);
 	        
+	        List<Review> newReview= reviewRepository.findByShopIdOrderByCreatedAtDesc(id);
+	        
+	        List<Review> displayedReviews = newReview.size() > 6 ? newReview.subList(0, 6) : newReview;
+	        model.addAttribute("newReview",newReview);
+	        model.addAttribute("displayedReviews", displayedReviews);
+	        model.addAttribute("totalReviewCount", newReview.size());
 	        model.addAttribute("shop", shop);         
 	        
 	        return "shops/show";

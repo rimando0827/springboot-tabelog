@@ -43,3 +43,17 @@ INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (10, '笠原 祐子', 'カサハラ ユウコ', '601-0761', '京都府南丹市美山町高野X-XX-XX', '090-1234-5678', 'yuko.kasahara@example.com', 'password', 1, false);
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (11, '笠原 秋美', 'カサハラ アキミ', '606-8235', '京都府京都市左京区田中西春菜町X-XX-XX', '090-1234-5678', 'akimi.kasahara@example.com', 'password', 1, false);
 INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (12, '笠原 信平', 'カサハラ シンペイ', '673-1324', '兵庫県加東市新定X-XX-XX', '090-1234-5678', 'shinpei.kasahara@example.com', 'password', 1, false);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (15, '笠原 強士', 'カサハラ ツヨシ', '999-9999', '兵庫県加東市新定X-XX-XX', '090-1234-9999', 'tuyosi.kasahara@example.com', 'password', 3, true);
+INSERT IGNORE INTO users (id, name, furigana, postal_code, address, phone_number, email, password, role_id, enabled) VALUES (16, '笠原 弱士', 'カサハラ ヨワシ', '999-9999', '兵庫県加東市新定X-XX-XX', '090-1234-9999', 'yowasi.kasahara@example.com', '$2a$10$2JNjTwZBwo7fprL2X4sv.OEKqxnVtsVQvuXDkI8xVGix.U3W5B7CO', 3, true);
+-- reviewテーブル
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(1,1,1,4,'とてもよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(2,1,2,5,'完璧でした');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(3,1,3,4,'とてもよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(4,1,4,3,'やすくてよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(5,1,5,2,'少し雰囲気がよくなかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(6,1,6,1,'ちょっと使いづらかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(7,1,7,4,'とてもよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(8,1,8,4,'とてもよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(9,1,9,4,'とてもよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(10,1,10,4,'とてもよかったです');
+INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(11,1,11,4,'とてもよかったです');
