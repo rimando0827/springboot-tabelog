@@ -1,4 +1,4 @@
-package com.example.springboot_tabelog.controller;
+package com.example.springboot_tabelog.controller.admin;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

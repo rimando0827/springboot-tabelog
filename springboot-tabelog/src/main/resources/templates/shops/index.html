@@ -45,7 +45,7 @@
 									<div class="form-group mb-3">
 										<select class="form-select samuraitravel-star"th:name="category" th:value="*{categoryId}">
 											<option class="samuraitravel-star" th:each="category : ${categoryList}"
-												th:value="${category.getId()}" th:text="${category.getName()}"></option>
+												th:value="${category.getId()}" th:text="${category.getName()}" th:selected="${category.getId() == categoryId }"></option>
 										</select>
 									</div>
 									<div class="form-group">
