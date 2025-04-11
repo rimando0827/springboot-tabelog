@@ -128,4 +128,6 @@ public class AdminShopController {
 	        
 	        return "redirect:/admin/shops/list";
 	    }   
+	  
+	  
 }

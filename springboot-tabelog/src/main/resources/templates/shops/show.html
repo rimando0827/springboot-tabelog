@@ -18,12 +18,31 @@
 			<div class="container pt-4 pb-5 samuraitravel-container">
 				<div class="row justify-content-center">
 					<div class="col-xxl-9 col-xl-10 col-lg-11">
-						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+						<nav class="mb-4 d-flex justify-content-between" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0">
 								<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
 								<li class="breadcrumb-item"><a th:href="@{/shops}">店舗一覧</a></li>
 								<li class="breadcrumb-item active" aria-current="page">店舗詳細</li>
 							</ol>
+							
+							
+							<div sec:authorize="isAuthenticated()" >
+									
+										<!-- お気に入りに登録 -->
+										<form th:if="${!isFavorite}"
+											th:action="@{/shops/__${shop.getId()}__/favorites/create}"
+											method="post" style="display:inline;">
+											<button type="submit" class="btn btn-link">&#9825;お気に入り追加</button>
+										</form>
+
+										<!-- お気に入りを削除 -->
+										<form th:if="${isFavorite}"
+											th:action="@{/shops/__${shop.getId()}__/favorites/__${favorite.getId()}__/delete}"
+											th:method="delete" style="display:inline;">
+											<button type="submit" class="btn btn-link">&#9829;お気に入りを削除</button>
+										</form>
+									
+								</div>
 						</nav>
 
 						<h1 class="mb-4 text-center" th:text="${shop.getName()}"></h1>
@@ -75,7 +94,7 @@
 
 									<div class="row pb-2 mb-2 border-bottom">
 										<div class="col-4">
-											<span class="fw-bold">予約料金</span>
+											<span class="fw-bold">予算料金</span>
 										</div>
 										<div class="col">
 											<span

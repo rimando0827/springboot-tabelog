@@ -57,6 +57,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownGeneral">      
 									
 									 <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/user}">会員情報</a>  
+									 <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/favorites}">お気に入り一覧</a>
                                     
                                     <div class="dropdown-divider"></div>
                                                                                                                                           
@@ -76,7 +77,8 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownAdmin">  
 									<a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/admin/users}">会員一覧</a>                                                                                               
                                     <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/admin/shops/list}">店舗一覧</a>                                                                                                     
-                                     <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/admin/categorys}">カテゴリー一覧</a>                         
+                                     <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/admin/categorys}">カテゴリー一覧</a>  
+                                     <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/admin/reviews}">レビュー一覧</a>                       
                                     <div class="dropdown-divider"></div>
                                     
                                     <a class="dropdown-item samuraitravel-dropdown-item" th:href="@{/logout}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
@@ -96,7 +98,9 @@
 	<div th:fragment="footer" th:remove="tag">
 		<footer>
 			<div class="d-flex justify-content-center align-items-center h-100">
-				<p class="text-center text-muted small mb-0">&copy; SAMURAI Travel All rights reserved.</p>
+				<p class="text-center text-muted small mb-0">&copy; SAMURAI Travel All rights reserved.<br>
+				<a  class="footer-link"th:href="@{/companys}">会社概要</a></p>
+				
 			</div>
 		</footer>
 	</div>

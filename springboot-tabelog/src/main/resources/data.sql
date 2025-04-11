@@ -57,3 +57,19 @@ INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(8,1,8,4
 INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(9,1,9,4,'とてもよかったです');
 INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(10,1,10,4,'とてもよかったです');
 INSERT IGNORE INTO reviews (id, shop_id, user_id, score, content) VALUES(11,1,11,4,'とてもよかったです');
+
+-- companyテーブル
+INSERT IGNORE INTO companys (id, name, address, representative, established, capital ,description ,number_of_employees) VALUES(1,'NAGOYAMESHI株式会社','〒460-0002 愛知県名古屋市中区丸の内1-9-16	丸の内Oneビルディング3F','笠原虎次郎','2017年2月28日','一億円','飲食店等の情報提供サービス','80名');
+
+-- favoritesテーブル
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(1,1,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(2,2,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(3,3,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(4,4,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(5,5,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(6,6,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(7,7,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(8,8,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(9,9,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(10,10,1);
+INSERT IGNORE INTO favorites (id, shop_id, user_id) VALUES(11,11,1);

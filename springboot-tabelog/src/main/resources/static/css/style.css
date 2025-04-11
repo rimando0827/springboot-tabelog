@@ -35,6 +35,14 @@ footer {
  background-color: #74cb60;
 }
 
+.btn-link{
+	color: #74b365;
+}
+
+.footer-link {
+	color: #6c757d;
+}
+
 .samuraitravel-wrapper {
  min-height: 100vh;
  position: relative;

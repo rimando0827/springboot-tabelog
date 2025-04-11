@@ -1,11 +1,13 @@
 package com.example.springboot_tabelog.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,11 +15,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.springboot_tabelog.entity.Favorite;
 import com.example.springboot_tabelog.entity.Review;
 import com.example.springboot_tabelog.entity.Shop;
 import com.example.springboot_tabelog.repository.CategoryRepository;
+import com.example.springboot_tabelog.repository.FavoriteRepository;
 import com.example.springboot_tabelog.repository.ReviewRepository;
 import com.example.springboot_tabelog.repository.ShopRepository;
+import com.example.springboot_tabelog.security.UserDetailsImpl;
 
 @Controller
 @RequestMapping("/shops")
@@ -26,11 +31,13 @@ public class ShopController {
 	private final ShopRepository shopRepository;     
 	private final CategoryRepository categoryRepository;
 	private final ReviewRepository reviewRepository;
+	private final FavoriteRepository favoriteRepository;
 	
-	public ShopController(ShopRepository shopRepository , CategoryRepository categoryRepository, ReviewRepository reviewRepository) {
+	public ShopController(ShopRepository shopRepository , CategoryRepository categoryRepository, ReviewRepository reviewRepository,FavoriteRepository favoriteRepository) {
         this.shopRepository = shopRepository;     
         this.categoryRepository = categoryRepository;
         this.reviewRepository= reviewRepository;
+        this.favoriteRepository = favoriteRepository;
         
 }
 	
@@ -84,12 +91,26 @@ public class ShopController {
 	  }
 	  
 	  @GetMapping("/{id}")
-	    public String show(@PathVariable(name = "id") Integer id, Model model) {
+	    public String show(@PathVariable(name = "id") Integer id, Model model,
+				@AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
 	        Shop shop = shopRepository.getReferenceById(id);
+	        boolean isFavorite = false; // 初期値として false をセット
+	        
+	        if (userDetailsImpl != null) {
+				Integer userId = userDetailsImpl.getUser().getId();
+				Optional<Favorite> optionalFavorite = favoriteRepository.findByShopIdAndUserId(id, userId);
+
+				if (optionalFavorite.isPresent()) {
+					model.addAttribute("favorite", optionalFavorite.get());
+					isFavorite = true; // Favorite が存在する場合は true
+				}
+			}
 	        
 	        List<Review> newReview= reviewRepository.findByShopIdOrderByCreatedAtDesc(id);
 	        
 	        List<Review> displayedReviews = newReview.size() > 6 ? newReview.subList(0, 6) : newReview;
+	        
+	        model.addAttribute("isFavorite", isFavorite); // boolean 値を必ず渡す
 	        model.addAttribute("newReview",newReview);
 	        model.addAttribute("displayedReviews", displayedReviews);
 	        model.addAttribute("totalReviewCount", newReview.size());

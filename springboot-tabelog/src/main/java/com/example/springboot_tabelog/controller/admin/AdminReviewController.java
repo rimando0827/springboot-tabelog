@@ -5,9 +5,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springboot_tabelog.entity.Review;
 import com.example.springboot_tabelog.repository.ReviewRepository;
@@ -52,6 +55,20 @@ public class AdminReviewController {
 		model.addAttribute("keyword", keyword);
 
 		return "admin/reviews/index";
+	}
+	
+	@DeleteMapping("/{reviewId}/delete")
+	public String delete(@PathVariable(name = "reviewId") Integer reviewId, RedirectAttributes redirectAttributes,Model model) {
+		
+		
+		reviewRepository.deleteById(reviewId);
+		
+		
+		
+		
+		redirectAttributes.addFlashAttribute("successMessage", "レビューを削除しました");
+
+		return "redirect:/admin/reviews";
 	}
 	
 	
