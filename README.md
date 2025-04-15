@@ -69,8 +69,17 @@
    - 店舗画像や店舗の基本情報、予約のボタンを表示
 
 ## 画面遷移図
+![画面遷移図](image/screenflow_user.png)
 
+管理者用
 
+![画面遷移図 管理者](image/screenflow_admin.png)
+
+## ER図
+![ER図](image/erd.png)
+
+## フローチャート
+![フローチャート](image/flowchart.png)
 
 
  
