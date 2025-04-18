@@ -87,3 +87,9 @@ CREATE TABLE IF NOT EXISTS favorites (
      FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
+
+
+CREATE TABLE IF NOT EXISTS terms (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    description TEXT NOT NULL
+);
