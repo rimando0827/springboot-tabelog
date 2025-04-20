@@ -1,6 +1,17 @@
 package com.example.springboot_tabelog.entity;
 
-/*
+import java.sql.Timestamp;
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.Data;
 
 @Entity
 @Table(name = "reservations")
@@ -12,7 +23,7 @@ public class Reservation {
 	    private Integer id;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "house_id")
+	    @JoinColumn(name = "shop_id")
 	    private Shop shop; 
 	    
 	    @ManyToOne
@@ -22,20 +33,16 @@ public class Reservation {
 	    @Column(name = "checkin_date")
 	    private LocalDate checkinDate;
 	    
-	    @Column(name = "checkout_date")
-	    private LocalDate checkoutDate;   
+	    @Column(name = "time_Date")
+	    private String timeDate;   
 	    
 	    @Column(name = "number_of_people")
-	    private Integer numberOfPeople; 
-	    
-	    @Column(name = "amount")
-	    private Integer amount;     
+	    private Integer numberOfPeople;   
 	    
 	    @Column(name = "created_at", insertable = false, updatable = false)
 	    private Timestamp createdAt;
 	    
 	    @Column(name = "updated_at", insertable = false, updatable = false)
-	    private Timestamp updatedAt; 
+	    private Timestamp updatedAt;
 
 }
-*/

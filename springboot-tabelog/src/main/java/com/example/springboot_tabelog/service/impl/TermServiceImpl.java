@@ -2,15 +2,14 @@ package com.example.springboot_tabelog.service.impl;
 
 
 
+import org.commonmark.node.Node;
+import org.commonmark.parser.Parser;
+import org.commonmark.renderer.html.HtmlRenderer;
 import org.springframework.stereotype.Service;
 
 import com.example.springboot_tabelog.entity.Term;
 import com.example.springboot_tabelog.repository.TermRepository;
 import com.example.springboot_tabelog.service.TermService;
-import com.vladsch.flexmark.html.HtmlRenderer;
-import com.vladsch.flexmark.parser.Parser;
-import com.vladsch.flexmark.util.ast.Node;
-import com.vladsch.flexmark.util.data.MutableDataSet;
 
 @Service
 public class TermServiceImpl implements TermService {
@@ -32,13 +31,13 @@ public class TermServiceImpl implements TermService {
 
 		@Override
 		 public String markdownToHtml(String markdown) {
-			MutableDataSet options = new MutableDataSet();
-	        Parser parser = Parser.builder(options).build();
-	        HtmlRenderer renderer = HtmlRenderer.builder(options).build();
+			
+	        Parser parser = Parser.builder().build();
+	        HtmlRenderer renderer = HtmlRenderer.builder().build();
 	        Node document = parser.parse(markdown);
-	        String html = renderer.render(document);
+	        return renderer.render(document);
 	        
-	        return html;
+	        
 	    }
 
 }

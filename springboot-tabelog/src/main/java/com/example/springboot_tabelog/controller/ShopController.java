@@ -1,12 +1,15 @@
 package com.example.springboot_tabelog.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.springboot_tabelog.entity.Favorite;
 import com.example.springboot_tabelog.entity.Review;
 import com.example.springboot_tabelog.entity.Shop;
+import com.example.springboot_tabelog.from.ReservationInputForm;
 import com.example.springboot_tabelog.repository.CategoryRepository;
 import com.example.springboot_tabelog.repository.FavoriteRepository;
 import com.example.springboot_tabelog.repository.ReviewRepository;
@@ -93,6 +97,7 @@ public class ShopController {
 	  @GetMapping("/{id}")
 	    public String show(@PathVariable(name = "id") Integer id, Model model,
 				@AuthenticationPrincipal UserDetailsImpl userDetailsImpl) {
+		  
 	        Shop shop = shopRepository.getReferenceById(id);
 	        boolean isFavorite = false; // 初期値として false をセット
 	        
@@ -106,6 +111,8 @@ public class ShopController {
 				}
 			}
 	        
+	        
+	        
 	        List<Review> newReview= reviewRepository.findByShopIdOrderByCreatedAtDesc(id);
 	        
 	        List<Review> displayedReviews = newReview.size() > 6 ? newReview.subList(0, 6) : newReview;
@@ -115,7 +122,33 @@ public class ShopController {
 	        model.addAttribute("displayedReviews", displayedReviews);
 	        model.addAttribute("totalReviewCount", newReview.size());
 	        model.addAttribute("shop", shop);         
+	        model.addAttribute("reservationInputForm", new ReservationInputForm());
+	        
 	        
 	        return "shops/show";
 	    }    
+	  
+	  @GetMapping("/{id}/closedDays")
+	    public ResponseEntity<?> getClosedDays(@PathVariable (name = "id") Integer id) {
+	        Optional<Shop> shop = shopRepository.findById(id);
+	        
+	        if (shop.isPresent()) {
+	            String closedDay = shop.get().getClosedDay();
+	            Map<String, Integer> daysOfWeek = Map.of(
+	                "Sunday", 0,
+	                "Monday", 1,
+	                "Tuesday", 2,
+	                "Wednesday", 3,
+	                "Thursday", 4,
+	                "Friday", 5,
+	                "Saturday", 6
+	            );
+	            Integer closedDayNumber = daysOfWeek.get(closedDay);
+
+	            return ResponseEntity.ok(closedDayNumber);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Shop not found");
+	        }
+	    }
+	  
 }

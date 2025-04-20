@@ -64,4 +64,17 @@ INSERT IGNORE INTO companys (id, name, address, representative, established, cap
 
 
 -- termsテーブル
-INSERT IGNORE INTO terms (id, description) VALUES(1,'﻿# NAGOYAMESHI 要件定義書');
+INSERT IGNORE INTO terms (id, description) VALUES(1,'﻿# NAGOYAMESHI 要件定義書 ## NAGOYAMESHI 要件定義書');
+
+--reservationsテーブル
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(1,1,1,'2024-04-30','17:00',1);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(2,2,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(3,3,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(4,4,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(5,5,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(6,6,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(7,7,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(8,8,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(9,9,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(10,10,1,'2024-04-30','17:00',2);
+INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(11,11,1,'2024-04-30','17:00',2);

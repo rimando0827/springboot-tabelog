@@ -87,6 +87,18 @@ CREATE TABLE IF NOT EXISTS favorites (
      FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
+CREATE TABLE IF NOT EXISTS reservations (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    shop_id INT NOT NULL,
+    user_id INT NOT NULL,
+    checkin_date VARCHAR(100) NOT NULL,
+    time_date VARCHAR(100) NOT NULL,
+    number_of_people INT NOT NULL,
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (shop_id) REFERENCES shops (id),
+    FOREIGN KEY (user_id) REFERENCES users (id)
+);
 
 
 CREATE TABLE IF NOT EXISTS terms (
