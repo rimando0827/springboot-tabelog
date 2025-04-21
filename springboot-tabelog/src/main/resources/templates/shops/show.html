@@ -176,8 +176,8 @@
                                                 <form method="get" action="#" th:object="${reservationInputForm}">                                                                                                                                                                       
                                                     <div class="form-group mb-2">                                            
                                                         <label for="fromCheckinDate'" class="col-form-label text-md-left fw-bold">予約日を選択</label>    
-                                                        <div th:if="${#fields.hasErrors('CheckinDate')}" class="text-danger small mb-2" th:errors="*{CheckinDate}"></div>                                          
-                                                        <input type="text" class="form-control" th:field="*{CheckinDate}">                                                                     
+                                                        <div th:if="${#fields.hasErrors('checkinDate')}" class="text-danger small mb-2" th:errors="*{checkinDate}"></div>                                          
+                                                        <input type="text" class="form-control" th:field="*{checkinDate}">                                                                     
                                                     </div>
                                                     
                                                     <div class="form-group mb-4">                                            
