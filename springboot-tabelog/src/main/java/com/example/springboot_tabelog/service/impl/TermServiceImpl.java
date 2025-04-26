@@ -14,6 +14,7 @@ import com.example.springboot_tabelog.service.TermService;
 @Service
 public class TermServiceImpl implements TermService {
 	 private final TermRepository termRepository;
+	 public static final String BOM = "\uFEFF";
 	    
 
 	    
@@ -34,10 +35,18 @@ public class TermServiceImpl implements TermService {
 			
 	        Parser parser = Parser.builder().build();
 	        HtmlRenderer renderer = HtmlRenderer.builder().build();
-	        Node document = parser.parse(markdown);
+	        Node document = parser.parse(removeUTF8BOM(markdown));
 	        return renderer.render(document);
 	        
 	        
 	    }
+		
+		private static String removeUTF8BOM(String s) {
+	        if (s.startsWith(BOM)) {
+	            // ファイルの先頭より後ろの文字列を読み込む
+	            s = s.substring(1);
+	        }
+	        return s;
+	  }
 
 }

@@ -64,7 +64,8 @@ INSERT IGNORE INTO companys (id, name, address, representative, established, cap
 
 
 -- termsテーブル
-INSERT IGNORE INTO terms (id, description) VALUES(1,'﻿# NAGOYAMESHI 要件定義書 ## NAGOYAMESHI 要件定義書');
+INSERT IGNORE INTO terms (id, description) VALUES(1,'﻿# NAGOYAMESHI 要件定義書\n## NAGOYAMESHI 要件定義書');
+
 
 --reservationsテーブル
 INSERT IGNORE INTO reservations (id,shop_id, user_id ,checkin_date,time_date,number_of_people) VALUES(1,1,1,'2024-04-30','17:00',1);
