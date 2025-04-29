@@ -6,4 +6,5 @@ import com.example.springboot_tabelog.entity.VerificationToken;
 
 public interface VerificationTokenRepository extends JpaRepository< VerificationToken, Integer> {
     public VerificationToken findByToken(String token);
+    void deleteAllByUserId(Integer userId);
 }

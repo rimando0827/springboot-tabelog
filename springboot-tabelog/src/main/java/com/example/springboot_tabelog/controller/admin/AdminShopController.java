@@ -40,15 +40,10 @@ public class AdminShopController {
 		
 	}
 
+
+
 	@GetMapping
-	public String index() {
-
-		return "admin/shops/index";
-
-	}
-
-	@GetMapping("/list")
-	public String list(Model model,
+	public String index(Model model,
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.ASC) Pageable pageable,
 			@RequestParam(name = "keyword", required = false) String keyword) {
 		Page<Shop> shopPage;
@@ -62,7 +57,7 @@ public class AdminShopController {
 		model.addAttribute("shopPage", shopPage);
 		model.addAttribute("keyword", keyword);
 
-		return "admin/shops/list";
+		return "admin/shops/index";
 
 	}
 
@@ -92,7 +87,7 @@ public class AdminShopController {
         shopService.create(shopRegisterForm);
         redirectAttributes.addFlashAttribute("successMessage", "店舗を登録しました。");    
         
-        return "redirect:/admin/shops/list";
+        return "redirect:/admin/shops";
     }    
 	
 	  @GetMapping("/{id}/edit")
@@ -117,7 +112,7 @@ public class AdminShopController {
 	        shopService.update(shopEditForm);
 	        redirectAttributes.addFlashAttribute("successMessage", "店舗情報を編集しました。");
 	        
-	        return "redirect:/admin/shops/list";
+	        return "redirect:/admin/shops";
 	    }    
 	  
 	  @DeleteMapping("/{id}/delete")
@@ -126,7 +121,7 @@ public class AdminShopController {
 	                
 	        redirectAttributes.addFlashAttribute("successMessage", "店舗を削除しました。");
 	        
-	        return "redirect:/admin/shops/list";
+	        return "redirect:/admin/shops";
 	    }   
 	  
 	  

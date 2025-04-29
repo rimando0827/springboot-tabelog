@@ -18,6 +18,11 @@
                        <div class="col-xl-3 col-lg-4 col-md-5 col-sm-7">                            
                            <h1 class="mb-4 text-center">ログイン</h1>            
                        
+                       
+                       <div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+
                            <div th:if="${param.error}" class="alert alert-danger">
                                メールアドレスまたはパスワードが正しくありません。
                            </div>
@@ -34,6 +39,12 @@
                                    <button type="submit" class="btn text-white shadow-sm w-100 samuraitravel-btn">ログイン</button>
                                </div>
                            </form>
+                           
+                            <div class="text-right">
+                               <a th:href="@{/reset}">
+                                           パスワードを忘れた
+                               </a>
+                           </div> 
                            
                            <div class="text-center">
                                <a th:href="@{/signup}">

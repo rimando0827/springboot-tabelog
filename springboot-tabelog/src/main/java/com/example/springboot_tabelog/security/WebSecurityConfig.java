@@ -18,7 +18,7 @@ public class WebSecurityConfig {
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	        http
 	            .authorizeHttpRequests((requests) -> requests                
-	            		.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**","/shops/**","/shops/{id}","shops/{id}/reviews" ,"companys","/reservations/**" ,"terms").permitAll()   // すべてのユーザーにアクセスを許可するURL           
+	            		.requestMatchers("/css/**", "/images/**", "/js/**", "/storage/**", "/", "/signup/**","/reset/**","/reset/password","/shops/**","/shops/{id}","shops/{id}/reviews" ,"companys","/reservations/**" ,"terms").permitAll()   // すべてのユーザーにアクセスを許可するURL           
 	                
 	            		.requestMatchers("/admin/**").hasRole("ADMIN")  // 管理者にのみアクセスを許可するURL
 	                .requestMatchers("shops/{id}/reviews/register").hasRole("PREMIUM")

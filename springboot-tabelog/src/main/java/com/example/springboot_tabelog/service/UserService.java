@@ -6,21 +6,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.springboot_tabelog.entity.Role;
 import com.example.springboot_tabelog.entity.User;
+import com.example.springboot_tabelog.from.PasswordEditForm;
 import com.example.springboot_tabelog.from.SignupForm;
 import com.example.springboot_tabelog.from.UserEditForm;
 import com.example.springboot_tabelog.repository.RoleRepository;
 import com.example.springboot_tabelog.repository.UserRepository;
+import com.example.springboot_tabelog.repository.VerificationTokenRepository;
 
 @Service
 public class UserService {
 	 private final UserRepository userRepository;
 	    private final RoleRepository roleRepository;
 	    private final PasswordEncoder passwordEncoder;
+	    private final VerificationTokenRepository verificationTokenRepository;
 	    
-	    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+	    public UserService(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder,VerificationTokenRepository verificationTokenRepository) {
 	        this.userRepository = userRepository;
 	        this.roleRepository = roleRepository;        
 	        this.passwordEncoder = passwordEncoder;
+	        this.verificationTokenRepository =verificationTokenRepository;
 	    }    
 	    
 	    @Transactional
@@ -50,10 +54,38 @@ public class UserService {
 	        user.setPostalCode(userEditForm.getPostalCode());
 	        user.setAddress(userEditForm.getAddress());
 	        user.setPhoneNumber(userEditForm.getPhoneNumber());
-	        user.setEmail(userEditForm.getEmail());      
+	        user.setEmail(userEditForm.getEmail());  
 	        
 	        userRepository.save(user);
 	    }    
+	    
+	    @Transactional
+	    public void updatePassword(PasswordEditForm passwordEditForm ) {
+	        User user = userRepository.getReferenceById(passwordEditForm.getId());
+	        
+	        user.setPassword(passwordEncoder.encode(passwordEditForm.getPassword()));
+	       
+	        
+	        userRepository.save(user);
+	    }    
+	    
+	    @Transactional
+	    public void updatePasswordTokendelete(Integer userId) {        
+
+		    // 関連トークンの削除
+		    verificationTokenRepository.deleteAllByUserId(userId);  
+		      
+	    } 
+	    
+		  @Transactional
+		    public void delete(Integer userId) {        
+
+			    // 関連トークンの削除
+			    verificationTokenRepository.deleteAllByUserId(userId);  
+			   
+			   userRepository.deleteById(userId);
+			      
+		    } 
 	    
 	 // メールアドレスが登録済みかどうかをチェックする
 	    public boolean isEmailRegistered(String email) {
