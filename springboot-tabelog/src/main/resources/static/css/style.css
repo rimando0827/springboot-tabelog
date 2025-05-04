@@ -50,6 +50,11 @@ footer {
  box-sizing: border-box;
 }
 
+ .nagoyameshi-btn {
+   background-color: rgb(255, 68, 68) !important;
+   transition: 0.1s;
+ }
+
 .samuraitravel-wrapper {
  min-height: 100vh;
  position: relative;

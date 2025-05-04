@@ -3,6 +3,7 @@ package com.example.springboot_tabelog.service;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.springboot_tabelog.entity.Reservation;
@@ -13,7 +14,7 @@ import com.example.springboot_tabelog.from.ReservationRegisterForm;
 import com.example.springboot_tabelog.repository.ReservationRepository;
 import com.example.springboot_tabelog.repository.ShopRepository;
 import com.example.springboot_tabelog.repository.UserRepository;
-
+@Service
 public class ReservationService {
 	
 	private final ReservationRepository reservationRepository;
@@ -38,7 +39,7 @@ public class ReservationService {
 		reservation.setShop(shop);
 		reservation.setUser(user);
 		reservation.setReservationDateTime(reservationDate);
-		reservation.setNumberOfPeople(reservationRegisterForm.getCount());
+		reservation.setNumberOfPeople(reservationRegisterForm.getNumberOfPeople());
 
 		reservationRepository.save(reservation);
 	}

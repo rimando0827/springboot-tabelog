@@ -8,13 +8,15 @@ import lombok.Data;
 public class ReservationInputForm {
 	   @NotBlank(message = "予約日を設定してください")
 	    private String checkinDate;    
+	   
+	   @NotBlank(message = "時間を設定してください")
+	    private String timeDate;   
 	    
 	    @NotNull(message = "来店人数を設定してください")
 	    @Min(value = 1, message = "来店人数は1人以上に設定してください。")
 	    private Integer numberOfPeople; 
 
-	    @NotBlank(message = "時間を設定してください")
-	    private String timeDate;   
+	   
 
 	    
 	    }

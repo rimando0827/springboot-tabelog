@@ -13,6 +13,6 @@ public class ReservationRegisterForm {
 
 	private String reservationDateTime;
 
-	private Integer count;
+	private Integer numberOfPeople;
 
 }
