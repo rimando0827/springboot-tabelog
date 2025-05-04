@@ -1,5 +1,7 @@
 package com.example.springboot_tabelog.from;
 
+import java.time.LocalTime;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.springboot_tabelog.entity.Category;
@@ -31,10 +33,10 @@ public class ShopEditForm {
 	    private String priceUpperLimit;
 	    
 	    @NotBlank(message = "営業開始時間を入力してください")
-	    private String openingTimes ;     
+	    private LocalTime openingTimes ;     
 	    
 	    @NotBlank(message = "営業終了時間を入力してください")
-	    private String closedTimes ;
+	    private LocalTime closedTimes ;
 	    
 	    @NotBlank(message = "郵便番号を入力してください。")
 	    private String postalCode;

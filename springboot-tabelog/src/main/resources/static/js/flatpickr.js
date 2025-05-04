@@ -3,20 +3,23 @@
 let maxDate = new Date();
 maxDate = maxDate.setMonth(maxDate.getMonth() + 3);
 
- fetch(`/shops/${shopId}/closedDays`)
-  .then(response => response.json())
-  .then(closedDayNumber => {
-flatpickr('#fromCheckinDate', {
- locale: 'ja',
- minDate: 'today',
- maxDate: maxDate,
- disable: [
-            function(date) {
-              // 曜日がclosedDayNumberで指定されている場合、その曜日を無効にする
-              return date.getDay() === closedDayNumber;
-            }
-          ]
-       
-      })
-      .catch(error => console.error('Error fetching closed days:', error));
+
+flatpickr('#checkinDate', {
+	mode: "single", //選択日付は1日のみ
+	locale: 'ja',
+	minDate: 'today',
+	maxDate: maxDate,
+	
+
 });
+
+let reservationTime = document.querySelector('#reservationTime');
+let hiddenOpeningTime = document.getElementsByName('hiddenOpeningTime')[0].value;
+let hiddenClosedTime = document.getElementsByName('hiddenClosedTime')[0].value;
+if (reservationTime != null) {
+	reservationTime.min = hiddenOpeningTime;
+}
+if (reservationTime != null) {
+	reservationTime.max = hiddenClosedTime;
+}
+

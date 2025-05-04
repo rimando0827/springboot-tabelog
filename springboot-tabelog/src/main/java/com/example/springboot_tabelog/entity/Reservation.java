@@ -1,7 +1,7 @@
 package com.example.springboot_tabelog.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,11 +30,8 @@ public class Reservation {
 	    @JoinColumn(name = "user_id")
 	    private User user;     
 	    
-	    @Column(name = "checkin_date")
-	    private LocalDate checkinDate;
-	    
-	    @Column(name = "time_Date")
-	    private String timeDate;   
+	    @Column(name = "reservation_datetime")
+	     private LocalDateTime reservationDateTime;
 	    
 	    @Column(name = "number_of_people")
 	    private Integer numberOfPeople;   

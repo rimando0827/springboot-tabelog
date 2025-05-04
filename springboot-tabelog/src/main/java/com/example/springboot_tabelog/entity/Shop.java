@@ -1,6 +1,7 @@
 package com.example.springboot_tabelog.entity;
 
 import java.sql.Timestamp;
+import java.time.LocalTime;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -41,10 +42,10 @@ public class Shop {
 	    private String priceUpperLimit;
 
 	    @Column(name = "opening_times")
-	    private String openingTimes;
+	    private LocalTime openingTimes;
 	    
 	    @Column(name = "closed_times")
-	    private String closedTimes;
+	    private LocalTime closedTimes;
 
 	    @Column(name = "postal_code")
 	    private String postalCode;

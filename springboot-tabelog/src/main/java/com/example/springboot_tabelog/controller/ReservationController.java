@@ -16,10 +16,15 @@ import com.example.springboot_tabelog.security.UserDetailsImpl;
 
 @Controller
 public class ReservationController {
-	  private final ReservationRepository reservationRepository;      
+	  private final ReservationRepository reservationRepository; 
+	 /* private final ShopRepository shopRepository;
+		private final ReservationService reservationService;
+		private final UserRepository userRepository;
+		private final ReviewRepository reviewRepository; */
 	    
 	    public ReservationController(ReservationRepository reservationRepository) {        
-	        this.reservationRepository = reservationRepository;              
+	        this.reservationRepository = reservationRepository;    
+	       
 	    }    
 
 	    @GetMapping("/reservations")
