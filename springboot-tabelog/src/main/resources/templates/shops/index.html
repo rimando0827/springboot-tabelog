@@ -43,8 +43,8 @@
 							<div class="card-body">
 								<form method="get" th:action="@{/shops}" class="w-100">
 									<div class="form-group mb-3">
-										<select class="form-select samuraitravel-star"th:name="category" th:value="*{categoryId}">
-											<option class="samuraitravel-star" th:each="category : ${categoryList}"
+										<select class="form-select samuraitravel"th:name="category" th:value="*{categoryId}">
+											<option class="samuraitravel" th:each="category : ${categoryList}"
 												th:value="${category.getId()}" th:text="${category.getName()}" th:selected="${category.getId() == categoryId }"></option>
 										</select>
 									</div>

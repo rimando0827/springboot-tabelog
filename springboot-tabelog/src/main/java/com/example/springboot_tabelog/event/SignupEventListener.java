@@ -8,16 +8,16 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 import com.example.springboot_tabelog.entity.User;
-import com.example.springboot_tabelog.service.VerificationTokenService;
+import com.example.springboot_tabelog.service.VerificationLoginTokenService;
 
 
 @Component
 public class SignupEventListener {
-	  private final VerificationTokenService verificationTokenService;    
+	  private final VerificationLoginTokenService verificationLoginTokenService;    
 	    private final JavaMailSender javaMailSender;
 	    
-	    public SignupEventListener(VerificationTokenService verificationTokenService, JavaMailSender mailSender) {
-	        this.verificationTokenService = verificationTokenService;        
+	    public SignupEventListener(VerificationLoginTokenService verificationLoginTokenService, JavaMailSender mailSender) {
+	        this.verificationLoginTokenService = verificationLoginTokenService;        
 	        this.javaMailSender = mailSender;
 	    }
 
@@ -25,7 +25,7 @@ public class SignupEventListener {
 	    private void onSignupEvent(SignupEvent signupEvent) {
 	        User user = signupEvent.getUser();
 	        String token = UUID.randomUUID().toString();
-	        verificationTokenService.create(user, token);
+	        verificationLoginTokenService.create(user, token);
 	        
 	        String senderAddress = "springboot.samuraitravel@example.com";
 	        String recipientAddress = user.getEmail();

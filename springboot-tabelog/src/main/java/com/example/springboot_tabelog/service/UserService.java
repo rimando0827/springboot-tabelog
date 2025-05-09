@@ -103,7 +103,7 @@ public class UserService {
 		  
 		  @Transactional
 		    public void createStripeCustomer(User user, String stripeId) {
-		        user.setPaidMember(stripeId);
+		        user.setStripeCustomerId(stripeId);
 		        userRepository.save(user);
 		    }
 		  

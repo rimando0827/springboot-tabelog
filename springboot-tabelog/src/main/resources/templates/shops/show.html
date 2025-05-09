@@ -33,7 +33,7 @@
 							</ol>
 
 
-							<div sec:authorize="isAuthenticated()">
+							<div sec:authorize="hasRole('ROLE_PREMIUM')">
 
 								<!-- お気に入りに登録 -->
 								<form th:if="${!isFavorite}" th:action="@{/shops/__${shop.getId()}__/favorites/create}"
@@ -165,17 +165,32 @@
 								<div sec:authorize="isAnonymous()" class="col-lg-4 px-0 ps-lg-4 mb-4">
 									<div class="card">
 										<div class="card-body">
-											<p class="card-text">予約するには<a th:href="@{/login}">ログイン</a>が必要です。</p>
+											<p class="card-text">予約するには<a
+													th:href="@{/login}">ログイン</a>したあと有料プランに加入する必要があります。</p>
 											<button type="submit"
 												class="btn text-white shadow-sm w-100 samuraitravel-btn"
 												disabled>予約する</button>
 										</div>
 									</div>
 								</div>
-								<div sec:authorize="isAuthenticated()" class="col-lg-4 px-0 ps-lg-4 mb-4">
+
+								<div sec:authorize="hasRole('ROLE_GENERAL')" class="col-lg-4 px-0 ps-lg-4 mb-4">
 									<div class="card">
 										<div class="card-body">
-											<form method="get" th:action="@{/shops/__${shop.getId()}__/reservations/input}" th:object="${reservationInputForm}">
+											<p class="card-text">予約するには<a
+													th:href="@{/subscriptions/register}">有料プラン</a>に加入する必要があります。</p>
+											<button type="submit"
+												class="btn text-white shadow-sm w-100 samuraitravel-btn"
+												disabled>予約する</button>
+										</div>
+									</div>
+								</div>
+								<div sec:authorize="hasRole('ROLE_PREMIUM')" class="col-lg-4 px-0 ps-lg-4 mb-4">
+									<div class="card">
+										<div class="card-body">
+											<form method="get"
+												th:action="@{/shops/__${shop.getId()}__/reservations/input}"
+												th:object="${reservationInputForm}">
 												<div class="form-group mb-2">
 													<label for="'checkinDate'"
 														class="col-form-label text-md-left fw-bold">予約日を選択</label>
@@ -183,16 +198,16 @@
 														class="text-danger small mb-2" th:errors="*{checkinDate}"></div>
 													<input type="text" class="form-control" th:field="*{checkinDate}">
 												</div>
-												
+
 												<div class="form-group mb-2">
-														<label for="reservationTime"
-															class="col-form-label text-md-left fw-bold">予約時間</label>
-														<div th:if="${#fields.hasErrors('timeDate')}"
-															class="text-danger small mb-2" th:errors="*{timeDate}">
-														</div>
-														<input type="time" class="form-control" name="timeDate"
-															th:field="*{timeDate}" min="09:00" max="18:00" />
+													<label for="reservationTime"
+														class="col-form-label text-md-left fw-bold">予約時間</label>
+													<div th:if="${#fields.hasErrors('timeDate')}"
+														class="text-danger small mb-2" th:errors="*{timeDate}">
 													</div>
+													<input type="time" class="form-control" name="timeDate"
+														th:field="*{timeDate}" min="09:00" max="18:00" />
+												</div>
 
 												<div class="form-group mb-4">
 													<label for="numberOfPeople"
@@ -203,8 +218,8 @@
 													<input type="number" class="form-control"
 														th:field="*{numberOfPeople}" min="1">
 												</div>
-												
-												
+
+
 
 												<div class="form-group">
 													<button type="submit"
@@ -224,13 +239,23 @@
 			<!-- レビューセクション -->
 			<div class="container px-0">
 				<h2 class="mb-4 text-center">レビュー</h2>
-				<div sec:authorize="isAuthenticated()" th:unless="${hasUserAlreadyReviewed}"
+				<div sec:authorize="hasRole('ROLE_GENERAL')" th:unless="${hasUserAlreadyReviewed}"
+					class="row justify-content-center mb-4">
+					<div class="col-lg-4">
+						<p class="card-text text-center">レビューを投稿するには<a th:href="@{/subscriptions/register}">有料プラン</a>に加入する必要があります。</p>
+						<button type="submit" class="btn text-white shadow-sm w-100 samuraitravel-btn"
+							disabled>レビューを投稿する</button>
+					</div>
+				</div>
+
+				<div sec:authorize="hasRole('ROLE_PREMIUM')" th:unless="${hasUserAlreadyReviewed}"
 					class="row justify-content-center mb-4">
 					<div class="col-lg-4">
 						<a th:href="@{/shops/__${shop.getId()}__/reviews/register}"
 							class="btn text-white shadow-sm w-100 samuraitravel-btn">レビューを投稿する</a>
 					</div>
 				</div>
+
 				<div th:if="${#lists.isEmpty(newReview)}" class="mb-4">
 					<p class="text-center">まだレビューがありません。</p>
 				</div>

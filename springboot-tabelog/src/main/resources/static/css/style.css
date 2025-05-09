@@ -39,6 +39,10 @@ footer {
 	color: #74b365;
 }
 
+.text-right {
+    text-align: right;
+}
+
 .footer-link {
 	color: #6c757d;
 }

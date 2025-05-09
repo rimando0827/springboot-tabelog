@@ -1,10 +1,5 @@
 package com.example.springboot_tabelog.service;
 
-import java.time.Instant;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,12 +7,9 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.example.springboot_tabelog.entity.Revenue;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
-import com.stripe.model.Invoice;
-import com.stripe.model.InvoiceCollection;
 import com.stripe.model.PaymentMethod;
 import com.stripe.model.PaymentMethodCollection;
 import com.stripe.model.Subscription;
@@ -55,11 +47,11 @@ public class StripeService {
 		return customer;
 	}
 
-	public Subscription createSubscription(String customerId, String planId) {
+	public Subscription createSubscription(String customerId, String priceId) {
 		Stripe.apiKey = stripeApiKey;
 
 		Map<String, Object> item = new HashMap<>();
-		item.put("plan", planId);
+		item.put("price", priceId);
 
 		Map<String, Object> items = new HashMap<>();
 		items.put("0", item);
@@ -150,7 +142,7 @@ public class StripeService {
 		}
 	}
 
-	// 期間別月間売上を取得する
+/*	// 期間別月間売上を取得する
 	public List<Revenue> getTotalRevenueByPeriod(LocalDate startMonth, LocalDate endMonth) {
 		Stripe.apiKey = stripeApiKey;
 
@@ -193,5 +185,5 @@ public class StripeService {
 		}
 		return totalRevenues;
 	}
-
+*/
 }

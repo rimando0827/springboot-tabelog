@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springboot_tabelog.entity.User;
+import com.example.springboot_tabelog.entity.VerificationLoginToken;
 import com.example.springboot_tabelog.entity.VerificationToken;
 import com.example.springboot_tabelog.event.ResetEventPublisher;
 import com.example.springboot_tabelog.event.SignupEventPublisher;
@@ -21,6 +22,7 @@ import com.example.springboot_tabelog.from.ResetForm;
 import com.example.springboot_tabelog.from.SignupForm;
 import com.example.springboot_tabelog.service.ResetService;
 import com.example.springboot_tabelog.service.UserService;
+import com.example.springboot_tabelog.service.VerificationLoginTokenService;
 import com.example.springboot_tabelog.service.VerificationTokenService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,13 +34,17 @@ public class AuthController {
 	private final SignupEventPublisher signupEventPublisher;
 	private final ResetEventPublisher resetEventPublisher;
 	private final VerificationTokenService verificationTokenService;
+	private final VerificationLoginTokenService verificationLoginTokenService;
 
 	public AuthController(UserService userService, SignupEventPublisher signupEventPublisher,
-			VerificationTokenService verificationTokenService, ResetService resetService,
+			VerificationTokenService verificationTokenService, 
+			VerificationLoginTokenService verificationLoginTokenService,
+			ResetService resetService,
 			ResetEventPublisher resetEventPublisher) {
 		this.userService = userService;
 		this.signupEventPublisher = signupEventPublisher;
 		this.verificationTokenService = verificationTokenService;
+		this.verificationLoginTokenService = verificationLoginTokenService;
 		this.resetService = resetService;
 		this.resetEventPublisher = resetEventPublisher;
 	}
@@ -82,12 +88,12 @@ public class AuthController {
 		return "redirect:/";
 	}
 
-	@GetMapping("/login/verify")
+	@GetMapping("/signup/verify")
 	public String verify(@RequestParam(name = "token") String token, Model model) {
-		VerificationToken verificationToken = verificationTokenService.getVerificationToken(token);
+		VerificationLoginToken verificationLoginToken = verificationLoginTokenService.getVerificationLoginToken(token);
 
-		if (verificationToken != null) {
-			User user = verificationToken.getUser();
+		if (verificationLoginToken != null) {
+			User user = verificationLoginToken.getUser();
 			userService.enableUser(user);
 			String successMessage = "会員登録が完了しました。";
 			model.addAttribute("successMessage", successMessage);

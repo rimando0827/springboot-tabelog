@@ -1,4 +1,4 @@
-/*package com.example.springboot_tabelog.controller;
+package com.example.springboot_tabelog.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,10 +20,10 @@ import com.stripe.model.PaymentMethod;
 import com.stripe.model.Subscription;
 
 @Controller
-@RequestMapping("/subscription")
+@RequestMapping("/subscriptions")
 public class PaidMemberController {
-	@Value("${stripe.plan-id}")
-	private String planId;
+	@Value("${stripe.price-id}")
+	private String priceId;
 
 	private final UserRepository userRepository;
 	private final UserService userService;
@@ -44,12 +44,14 @@ public class PaidMemberController {
     public String create(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, @RequestParam String paymentMethodId, RedirectAttributes redirectAttributes) {      
         User user = userRepository.getReferenceById(userDetailsImpl.getUser().getId());  
         
-        if (user.getPaidMember() == null || user.getPaidMember().isEmpty()) { 
+        if (user.getStripeCustomerId() == null || user.getStripeCustomerId().isEmpty()) { 
             Customer customer = stripeService.createCustomer(user.getName(), user.getEmail(), paymentMethodId);
             userService.createStripeCustomer(user, customer.getId());
-        }
+        } 
         
-        stripeService.createSubscription(user.getPaidMember(), planId);
+        
+        
+        stripeService.createSubscription(user.getStripeCustomerId(), priceId); //planId = プライスID
         
         userService.updateRole(user, "ROLE_PREMIUM");
         userService.refreshAuthenticationByRole("ROLE_PREMIUM");
@@ -61,7 +63,7 @@ public class PaidMemberController {
     @GetMapping("/edit")
     public String edit(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, Model model) {      
         User user = userRepository.getReferenceById(userDetailsImpl.getUser().getId()); 
-        PaymentMethod paymentMethod = stripeService.getDefaultPaymentMethod(user.getPaidMember());        
+        PaymentMethod paymentMethod = stripeService.getDefaultPaymentMethod(user.getStripeCustomerId());        
         
         model.addAttribute("card", paymentMethod.getCard());
         model.addAttribute("cardHolderName", paymentMethod.getBillingDetails().getName());
@@ -74,8 +76,8 @@ public class PaidMemberController {
         User user = userRepository.getReferenceById(userDetailsImpl.getUser().getId());  
         
         try {
-            String oldDefaultPaymentMethodId = stripeService.getDefaultPaymentMethod(user.getPaidMember()).getId();        
-            stripeService.updateSubscription(user.getPaidMember(), paymentMethodId);
+            String oldDefaultPaymentMethodId = stripeService.getDefaultPaymentMethod(user.getStripeCustomerId()).getId();        
+            stripeService.updateSubscription(user.getStripeCustomerId(), paymentMethodId);
             stripeService.detachPaymentMethod(oldDefaultPaymentMethodId);
             redirectAttributes.addFlashAttribute("successMessage", "お支払い方法を変更しました。");                           
         } catch (Exception e) {
@@ -89,11 +91,11 @@ public class PaidMemberController {
     public String delete(@AuthenticationPrincipal UserDetailsImpl userDetailsImpl, RedirectAttributes redirectAttributes) {
         User user = userRepository.getReferenceById(userDetailsImpl.getUser().getId());          
         
-        Subscription subscription = stripeService.getSubscription(user.getPaidMember());
+        Subscription subscription = stripeService.getSubscription(user.getStripeCustomerId());
         if (subscription != null) {
             stripeService.cancelSubscription(subscription);
-            userService.updateRole(user, "ROLE_PREMIUM");
-            userService.refreshAuthenticationByRole("ROLE_PREMIUM");
+            userService.updateRole(user, "ROLE_GENERAL");
+            userService.refreshAuthenticationByRole("ROLE_GENERAL");
             redirectAttributes.addFlashAttribute("successMessage", "有料プランを解約しました。");    
         } else {
             redirectAttributes.addFlashAttribute("errorMessage", "有料プランの解約に失敗しました。");    
@@ -104,4 +106,4 @@ public class PaidMemberController {
 
 }
 
-*/
+
