@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+	<title>会員規約</title>
+
+	<style>
+		#htmlContent {
+			text-align: left;
+			/* テキストを水平方向に中央寄せ */
+		}
+	</style>
+</head>
+
+<body>
+
+	<div class="samuraitravel-wrapper">
+
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+		<script th:src="@{/js/preview.js}"></script>
+
+		<main>
+			<div class="container pt-4 pb-5 samuraitravel-container">
+				<div class="row justify-content-center">
+					<div class="col-xl-0 col-lg-6 col-md-8">
+
+
+						<h1 class="mb-4 text-center">利用規約</h1>
+						<div th:if="${successMessage}" class="alert alert-info">
+                                <span th:text="${successMessage}"></span>
+                            </div>  
+						<div class="d-flex justify-content-end align-items-end mb-3">
+							<div>
+								<a th:href="@{/admin/terms/__${termNum.getId()}__/edit}">編集</a>
+							</div>
+						</div>
+
+						<div class="nagoyameshi-container pb-5">
+							<div id="htmlContent"></div> <!-- Markdownから変換されたHTMLを表示 -->
+							<script th:inline="javascript">
+								/* <![CDATA[ */
+								var markdownContent = /*[[${term.getDescription()}]]*/ '';
+								document.getElementById("htmlContent").innerHTML = marked.parse(markdownContent);
+								/* ]]> */
+							</script>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+		<script th:src="@{/js/preview.js}"></script>
+		<div th:replace="~{fragment :: scripts}"></div>
+	</div>
+</body>
+
+</html>

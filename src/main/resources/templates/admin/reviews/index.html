@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+	<div th:replace="~{fragment :: meta}"></div>
+
+	<div th:replace="~{fragment :: styles}"></div>
+
+	<title>レビュー一覧</title>
+</head>
+
+<body>
+	<div class="samuraitravel-wrapper">
+		<!-- ヘッダー -->
+		<div th:replace="~{fragment :: header}"></div>
+
+		<main>
+			<div class="container samuraitravel-container pb-5">
+				<div class="row justify-content-center">
+					<div class="col-xxl-9 col-xl-10 col-lg-11">
+						<nav class="my-3" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+							<ol class="breadcrumb mb-0">
+								<li class="breadcrumb-item"><a th:href="@{/}">ホーム</a></li>
+								<li class="breadcrumb-item active" aria-current="page">レビュー一覧</li>
+							</ol>
+						</nav>
+
+
+                        <div class="row">
+						<div class="col-xl-3 col-lg-4 col-md-12">
+							
+							<form method="get" th:action="@{/admin/reviews}" class="w-100 mb-3">
+							
+							<div class="input-group">
+								<input type="text" class="form-control" name="keyword" th:value="${keyword}"
+									placeholder="店舗名">
+								<button type="submit" class="btn text-white shadow-sm samuraitravel-btn">検索</button>
+							</div>
+						</form>
+						
+							<div class="card mb-3">
+								<div class="card-header">
+									店舗から探す
+								</div>
+								<table class="table">
+									<tbody>
+										<tr th:each="shop : ${shopList}">
+											<td>
+												<a th:href="@{/admin/reviews?(keyword=${shop.name})}" th:text="${shop.name}" class="me-2"></a>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						 
+
+
+
+		
+
+
+
+
+						<div class="col-xl-9 col-lg-8 col-md-12">
+
+						<div th:if="${successMessage}" class="alert alert-info">
+							<span th:text="${successMessage}"></span>
+						</div>
+
+						<div th:unless="${#lists.isEmpty(reviewPage)}" class="col">
+							<div th:each="review : ${reviewPage}">
+								<div class="mb-3">
+									<div class="card">
+										<div class="card-body">
+											<div class="d-flex justify-content-between">
+												<h5 class="card-title" th:text="${review.getShop().getName()}"></h5>
+												<span sec:authorize="hasRole('ROLE_ADMIN')">
+													
+
+
+													<a href="#" class="samuraitravel-link-danger" data-bs-toggle="modal"
+														th:attr="data-bs-target=${'#deleteReviewModal' + review.getId()}">削除</a>
+
+													<!-- 削除用モーダル -->
+													<div class="modal fade"
+														th:id="${'deleteReviewModal' + review.getId()}" tabindex="-1"
+														th:aria-labelledby="${'deleteReviewModalLabel' + review.getId()}">
+														<div class="modal-dialog">
+															<div class="modal-content">
+																<div class="modal-header">
+																	<h5 class="modal-title"
+																		th:id="${'deleteReviewModalLabel' + review.getId()}"
+																		th:text="${review.getShop().getName() + 'のレビューを削除してもよろしいですか？'}">
+																	</h5>
+																	<button type="button" class="btn-close"
+																		data-bs-dismiss="modal"
+																		aria-label="閉じる"></button>
+																</div>
+																<div class="modal-footer">
+																	<form th:method="delete"th:action="@{/admin/reviews/__${review.getId()}__/delete}">
+
+																		<button type="submit"
+																			class="btn samuraitravel-btn-danger text-white shadow-sm">削除</button>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</div>
+												</span>
+											</div>
+											<p class="card-text mb-1">
+												<span class="samuraitravel-star"
+													th:each="star : ${#numbers.sequence(1, 5)}"
+													th:text="${star <= review.getScore()} ? '&#9733;' : '&#9734;'"></span>
+											</p>
+											<p class="card-text"><small class="text-muted"
+													th:text="${#dates.format(review.getCreatedAt(), 'yyyy年MM月dd日')}"></small>
+											</p>
+											<p class="card-text" th:text="${review.getUser().getName()}"></p>
+											<p class="card-text" th:text="${review.getContent()}"></p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+						<div th:if="${reviewPage.getTotalPages() > 1}" class="d-flex justify-content-center">
+							<nav aria-label="レビュー一覧ページ">
+								<ul class="pagination">
+
+
+									<li class="page-item">
+										<span th:if="${reviewPage.isFirst()}" class="page-link disabled">前</span>
+										<a th:unless="${reviewPage.isFirst()}"
+											th:href="@{/admin/reviews (page = ${reviewPage.getNumber() - 1})}"
+											class="page-link samuraitravel-page-link">前</a>
+									</li>
+
+
+									<li th:each="i : ${#numbers.sequence(0, reviewPage.getTotalPages() - 1)}"
+										class="page-item">
+										<span th:if="${i == reviewPage.getNumber()}"
+											class="page-link active samuraitravel-active" th:text="${i + 1}"></span>
+										<a th:unless="${i == reviewPage.getNumber()}"
+											th:href="@{/admin/reviews (page = ${i})}"
+											class="page-link samuraitravel-page-link" th:text="${i + 1}"></a>
+									</li>
+
+
+									<li class="page-item">
+										<span th:if="${reviewPage.isLast()}" class="page-link disabled">次</span>
+										<a th:unless="${reviewPage.isLast()}"
+											th:href="@{/admin/reviews (page = ${reviewPage.getNumber() + 1})}"
+											class="page-link samuraitravel-page-link">次</a>
+									</li>
+								</ul>
+							</nav>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+		</main>
+
+		<!-- フッター -->
+		<div th:replace="~{fragment :: footer}"></div>
+	</div>
+
+
+	<!-- Bootstrap -->
+	<div th:replace="~{fragment :: scripts}"></div>
+	<script th:src="@{/js/preview.js}"></script>
+</body>
+
+
+</html>
