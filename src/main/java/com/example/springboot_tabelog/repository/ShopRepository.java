@@ -24,6 +24,7 @@ public interface ShopRepository extends JpaRepository<Shop, Integer> {
 	
 	public List<Shop> findTop10ByOrderByCreatedAtDesc();
 	
+	public List<Shop> findByCategoryId(Integer categoryId);
 	Optional<Shop> findById(Integer id);
 
 }

@@ -1,5 +1,7 @@
 package com.example.springboot_tabelog.controller.admin;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
@@ -19,9 +21,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.springboot_tabelog.entity.Category;
+import com.example.springboot_tabelog.entity.Shop;
 import com.example.springboot_tabelog.from.CategoryEditForm;
 import com.example.springboot_tabelog.from.CategoryRegisterForm;
 import com.example.springboot_tabelog.repository.CategoryRepository;
+import com.example.springboot_tabelog.repository.ShopRepository;
 import com.example.springboot_tabelog.service.CategoryService;
 
 @Controller
@@ -30,10 +34,12 @@ public class AdminCategoryController {
 
 	private final CategoryRepository categoryRepository;
 	private final CategoryService categoryService;  
+	private final ShopRepository shopRepository;
 
-	public AdminCategoryController(CategoryRepository categoryRepository, CategoryService categoryService) {
+	public AdminCategoryController(CategoryRepository categoryRepository, CategoryService categoryService,ShopRepository shopRepository) {
 		this.categoryRepository = categoryRepository;
 		this.categoryService = categoryService;
+		this.shopRepository = shopRepository;
 	}
 
 	@GetMapping
@@ -109,11 +115,19 @@ public class AdminCategoryController {
     }    
 	
 	@DeleteMapping("/{id}/delete")
-    public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {        
+    public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {   
+		List<Shop> shop = shopRepository.findByCategoryId(id);
+		
+		   if (shop != null && shop.size()>0 ) {
+
+	            redirectAttributes.addFlashAttribute("successMessage", "カテゴリ情報が既に店舗に紐付けられているので、削除できません。");
+	            return "redirect:/admin/categorys";
+		   }else {
 		categoryRepository.deleteById(id);
                 
         redirectAttributes.addFlashAttribute("successMessage", "店舗を削除しました。");
         
         return "redirect:/admin/categorys";
     }   
+	}
 }

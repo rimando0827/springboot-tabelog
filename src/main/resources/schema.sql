@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS favorites (
      user_id INT NOT NULL, 
      created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
      updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+     UNIQUE (shop_id, user_id),
      FOREIGN KEY (shop_id) REFERENCES shops (id),
      FOREIGN KEY (user_id) REFERENCES users (id)
 );
