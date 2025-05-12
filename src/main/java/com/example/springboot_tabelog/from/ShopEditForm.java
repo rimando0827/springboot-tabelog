@@ -32,10 +32,10 @@ public class ShopEditForm {
 	    @NotBlank(message = "最低料金を入力してください")
 	    private String priceUpperLimit;
 	    
-	    @NotBlank(message = "営業開始時間を入力してください")
+	    @NotNull(message = "営業開始時間を入力してください")
 	    private LocalTime openingTimes ;     
 	    
-	    @NotBlank(message = "営業終了時間を入力してください")
+	    @NotNull(message = "営業終了時間を入力してください")
 	    private LocalTime closedTimes ;
 	    
 	    @NotBlank(message = "郵便番号を入力してください。")

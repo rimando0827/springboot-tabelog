@@ -20,7 +20,7 @@
 					<div class="col-xl-5 col-lg-6 col-md-8">
 						<nav class="mb-4" style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a th:href="@{/admin/shops/list}">店舗一覧</a></li>
+								<li class="breadcrumb-item"><a th:href="@{/admin/shops}">店舗一覧</a></li>
 								<li class="breadcrumb-item active" aria-current="page">店舗登録</li>
 							</ol>
 						</nav>
@@ -45,8 +45,8 @@
 									<label for="category" class="col-form-label text-md-left fw-bold">店舗</label>
 								</div>
 								<div class="col-md-8">
-									<select class="form-select samuraitravel-star" th:field="*{category}">
-										<option class="samuraitravel-star" th:each="category : ${categoryList}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
+									<select class="form-select samuraitravel" th:field="*{category}">
+										<option class="samuraitravel" th:each="category : ${categoryList}" th:value="${category.getId()}" th:text="${category.getName()}"></option>
 									</select>
 
 								</div>
@@ -109,7 +109,7 @@
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('openingTimes')}" class="text-danger small mb-2"
 										th:errors="*{openingTimes}"></div>
-									<input type="text" class="form-control" th:field="*{openingTimes}">
+									<input type="time" class="form-control" th:field="*{openingTimes}">
 								</div>
 							</div>
 
@@ -120,7 +120,7 @@
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('closedTimes')}" class="text-danger small mb-2"
 										th:errors="*{closedTimes}"></div>
-									<input type="text" class="form-control" th:field="*{closedTimes}">
+									<input type="time" class="form-control" th:field="*{closedTimes}">
 								</div>
 							</div>
 
