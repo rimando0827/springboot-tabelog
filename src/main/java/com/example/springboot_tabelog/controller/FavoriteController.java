@@ -18,7 +18,6 @@ import com.example.springboot_tabelog.entity.Favorite;
 import com.example.springboot_tabelog.entity.User;
 import com.example.springboot_tabelog.from.FavoriteForm;
 import com.example.springboot_tabelog.repository.FavoriteRepository;
-import com.example.springboot_tabelog.repository.ShopRepository;
 import com.example.springboot_tabelog.security.UserDetailsImpl;
 import com.example.springboot_tabelog.service.FavoriteService;
 
@@ -26,12 +25,12 @@ import com.example.springboot_tabelog.service.FavoriteService;
 public class FavoriteController {
 	private FavoriteService favoriteService;
 	private FavoriteRepository favoriteRepository;
-	private ShopRepository shopRepository;
 	
-	public FavoriteController(FavoriteRepository favoriteRepository, ShopRepository shopRepository,FavoriteService favoriteService) {
+	
+	public FavoriteController(FavoriteRepository favoriteRepository,FavoriteService favoriteService) {
 		 this.favoriteService = favoriteService;
 		this.favoriteRepository = favoriteRepository;
-		this.shopRepository = shopRepository;
+		
 
 	}
 	
