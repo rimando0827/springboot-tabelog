@@ -22,6 +22,9 @@ import com.example.springboot_tabelog.entity.Shop;
 import com.example.springboot_tabelog.from.ShopEditForm;
 import com.example.springboot_tabelog.from.ShopRegisterForm;
 import com.example.springboot_tabelog.repository.CategoryRepository;
+import com.example.springboot_tabelog.repository.FavoriteRepository;
+import com.example.springboot_tabelog.repository.ReservationRepository;
+import com.example.springboot_tabelog.repository.ReviewRepository;
 import com.example.springboot_tabelog.repository.ShopRepository;
 import com.example.springboot_tabelog.service.ShopService;
 
@@ -31,12 +34,19 @@ public class AdminShopController {
 
 	private final ShopRepository shopRepository;
 	private final CategoryRepository categoryRepository;
+	private final ReservationRepository reservationRepository;
+	private final ReviewRepository reviewRepository;
+	private final FavoriteRepository favoriteRepository;
+	
 	private final ShopService shopService;  
 
-	public AdminShopController(ShopRepository shopRepository,CategoryRepository categoryRepository,ShopService shopService) {
+	public AdminShopController(ShopRepository shopRepository,CategoryRepository categoryRepository,ShopService shopService,ReservationRepository reservationRepository,ReviewRepository reviewRepository,FavoriteRepository favoriteRepository) {
 		this.shopRepository = shopRepository;
 		this.categoryRepository = categoryRepository;
 		this.shopService = shopService;
+		this.reservationRepository =reservationRepository;
+		this.reviewRepository = reviewRepository;
+		this.favoriteRepository = favoriteRepository;
 		
 	}
 
@@ -117,6 +127,9 @@ public class AdminShopController {
 	  
 	  @DeleteMapping("/{id}/delete")
 	    public String delete(@PathVariable(name = "id") Integer id, RedirectAttributes redirectAttributes) {  
+		   reservationRepository.deleteByShopId(id);
+		    reviewRepository.deleteByShopId(id);
+		    favoriteRepository.deleteByShopId(id);
 		  
 		       shopRepository.deleteById(id);
 	                
