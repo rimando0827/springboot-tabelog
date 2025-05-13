@@ -46,7 +46,7 @@ public class FavoriteController {
 
 		model.addAttribute("favoriteList", favoriteList);
 
-		return "/favorites/index";
+		return "favorites/index";
 
 	}
 	
