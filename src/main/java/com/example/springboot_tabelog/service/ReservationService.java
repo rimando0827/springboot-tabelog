@@ -1,6 +1,7 @@
 package com.example.springboot_tabelog.service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
 import org.springframework.stereotype.Service;
@@ -48,6 +49,12 @@ public class ReservationService {
 	public void cancel(ReservationCancelForm reservationCancelForm) {
 		reservationRepository.deleteById(reservationCancelForm.getId());
 	}
+	
+	 public boolean isWithinOperatingHours(String reservationDate, String reservationTime, Shop shop) {
+	        LocalTime reservationLocalTime = LocalTime.parse(reservationTime);
+	        
+	        return !reservationLocalTime.isBefore(shop.getOpeningTimes()) && !reservationLocalTime.isAfter(shop.getClosedTimes());
+	    }
 	
 	// 予約日時が現在時刻以降かをチェックする
 		public boolean isReservationDateWhenCurrentTimeAfter(String reservationDate, String reservationTime) {

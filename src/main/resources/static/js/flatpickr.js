@@ -13,7 +13,7 @@ flatpickr('#checkinDate', {
 
 });
 
-let reservationTime = document.querySelector('#reservationTime');
+let reservationTime = document.querySelector('#timeDate');
 let hiddenOpeningTime = document.getElementsByName('hiddenOpeningTime')[0].value;
 let hiddenClosedTime = document.getElementsByName('hiddenClosedTime')[0].value;
 if (reservationTime != null) {

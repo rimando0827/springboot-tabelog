@@ -91,10 +91,16 @@ public class ReservationController {
 
 			String reservationDate = reservationInputForm.getCheckinDate();
 			String reservationTime = reservationInputForm.getTimeDate();
+			
+			if (!reservationService.isWithinOperatingHours(reservationDate, reservationTime, shop)) {
+                FieldError fieldError = new FieldError(bindingResult.getObjectName(), "timeDate",
+                        "予約は営業中のみ受け付けています。");
+                bindingResult.addError(fieldError);
+            }
 
 			if (!reservationDate.isEmpty() && !reservationTime.isEmpty()) {
 				if (!reservationService.isReservationDateWhenCurrentTimeAfter(reservationDate, reservationTime)) {
-					FieldError fieldError = new FieldError(bindingResult.getObjectName(), "reservationTime",
+					FieldError fieldError = new FieldError(bindingResult.getObjectName(), "timeDate",
 							"予約時間を過ぎています。");
 					bindingResult.addError(fieldError);
 					
