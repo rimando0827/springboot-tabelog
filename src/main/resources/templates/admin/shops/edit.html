@@ -69,8 +69,9 @@
 							</div>
 
 							<!-- 選択された画像の表示場所 -->
-							<div th:if="${imageName}" class="row" id="imagePreview"><img th:src="@{/storage/__${imageName}__}" class="mb-3"></div>
-                               <div th:unless="${imageName}" class="row" id="imagePreview"></div>     
+							<div th:if="${imageName}" class="row" id="imagePreview"><img
+									th:src="@{/storage/__${imageName}__}" class="mb-3"></div>
+							<div th:unless="${imageName}" class="row" id="imagePreview"></div>
 
 							<div class="form-group row mb-3">
 								<div class="col-md-4">
@@ -115,7 +116,14 @@
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('openingTimes')}" class="text-danger small mb-2"
 										th:errors="*{openingTimes}"></div>
-									<input type="time" class="form-control" th:field="*{openingTimes}">
+									<input type="time" class="form-control" th:field="*{openingTimes}" id="openingTimeInput">
+									
+									<script>
+										const openingTimeInput = document.getElementById('openingTimeInput');
+										if (!openingTimeInput.value) {
+											openingTimeInput.value = "00:00";
+										}
+									</script>
 								</div>
 							</div>
 
@@ -126,7 +134,13 @@
 								<div class="col-md-8">
 									<div th:if="${#fields.hasErrors('closedTimes')}" class="text-danger small mb-2"
 										th:errors="*{closedTimes}"></div>
-									<input type="time" class="form-control" th:field="*{closedTimes}">
+									<input type="time" class="form-control" th:field="*{closedTimes}" id="closedTimeInput">
+									<script>
+										const closedTimeInput = document.getElementById('closedTimeInput');
+										if (!closedTimeInput.value) {
+											closedTimeInput.value = "00:00";
+										}
+									</script>
 								</div>
 							</div>
 
